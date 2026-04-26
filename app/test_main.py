@@ -18,3 +18,19 @@ from app.main import get_human_age
 )
 def test_get_human_age(cat_age: int, dog_age: int, expected: list) -> None:
     assert get_human_age(cat_age, dog_age) == expected
+
+
+@pytest.mark.parametrize(
+    "cat_age, dog_age",
+    [
+        (-1, 10),
+        (10, -1),
+        (101, 10),
+        (10, 101),
+        ("10", 10),
+        (10, "10"),
+    ],
+)
+def test_get_human_age_invalid_input(cat_age: int, dog_age: int) -> None:
+    with pytest.raises((ValueError, TypeError)):
+        get_human_age(cat_age, dog_age)
